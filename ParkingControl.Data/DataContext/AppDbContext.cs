@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using ParkingControl.Domain.Contexts.PargingSpots.Entities;
+using ParkingControl.Domain.Contexts.ParkingFees.Entities;
 using System.Reflection;
 
 namespace ParkingControl.Data.DataContext;
@@ -13,4 +14,5 @@ public class AppDbContext : DbContext
     }
 
 	public DbSet<ParkingSpot> parkingSpots { get; set; } = null!;
+	public DbSet<ParkingFee> parkingFees { get; set; } = null!;
 }

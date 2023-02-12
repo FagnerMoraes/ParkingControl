@@ -11,4 +11,9 @@
     <ProjectReference Include="..\ParkingControl.Domain\ParkingControl.Domain.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Contexts\ParkingFees\" />
+    <Folder Include="Contexts\ParkingSpots\DTOs\Response\" />
+  </ItemGroup>
+
 </Project>

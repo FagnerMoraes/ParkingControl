@@ -1,4 +1,5 @@
-﻿namespace ParkingControl.Domain.Contexts.PargingSpots.Entities;
+﻿
+namespace ParkingControl.Domain.Contexts.PargingSpots.Entities;
 public class ParkingSpot
 {
     public int Id { get; private set; }
@@ -28,6 +29,8 @@ public class ParkingSpot
     {
         TimeOfParking = CarLeaveTime - CarEntryTime;
     }
+
+
 
 
 }
