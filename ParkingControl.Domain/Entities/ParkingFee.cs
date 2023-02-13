@@ -1,7 +1,7 @@
 ﻿namespace ParkingControl.Domain.Entities;
 public class ParkingFee
 {
-    public ParkingFee(int id, DateTime initialValidityDate, DateTime finalValidityDate, decimal fullHourPrice, decimal aditionalHourPrice)
+    public ParkingFee(int id, DateTime initialValidityDate, DateTime finalValidityDate, Decimal fullHourPrice, Decimal aditionalHourPrice)
     {
         Id = id;
         InitialValidityDate = initialValidityDate;
@@ -9,12 +9,12 @@ public class ParkingFee
         FullHourPrice = fullHourPrice;
         AditionalHourPrice = aditionalHourPrice;
     }
-    public ParkingFee(DateTime initialValidityDate, DateTime finalValidityDate, decimal fullHourPrice, decimal aditionalHourPrice) 
+    public ParkingFee(DateTime initialValidityDate, DateTime finalValidityDate, Decimal fullHourPrice, Decimal aditionalHourPrice) 
         : this(default, initialValidityDate, finalValidityDate, fullHourPrice, aditionalHourPrice) { }
 
     public int Id { get; set; }
     public DateTime InitialValidityDate { get; set; }
     public DateTime FinalValidityDate { get; set; }
-    public decimal FullHourPrice { get; set; }
-    public decimal AditionalHourPrice { get; set; }
+    public Decimal FullHourPrice { get; set; }
+    public Decimal AditionalHourPrice { get; set; }
 }

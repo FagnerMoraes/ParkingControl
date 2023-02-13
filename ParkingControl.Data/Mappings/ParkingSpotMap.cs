@@ -11,6 +11,7 @@ public class ParkingSpotMap : IEntityTypeConfiguration<ParkingSpot>
 
         builder.Property(p => p.LicensePlate)
             .HasColumnName("col_placa_veiculo")
+            .HasMaxLength(8)
             .IsRequired();
 
         builder.Property(p => p.ParkingSpotStatus)
@@ -32,6 +33,6 @@ public class ParkingSpotMap : IEntityTypeConfiguration<ParkingSpot>
 
         builder.Property(p => p.PriceOfParking)
             .HasColumnName("col_preco_estacionamento")
-            .HasColumnType("time");
+            .HasColumnType("money");
     }
 }

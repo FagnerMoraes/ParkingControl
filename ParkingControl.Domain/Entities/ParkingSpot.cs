@@ -9,7 +9,7 @@ public class ParkingSpot
     public DateTime CarLeaveTime { get; private set; }
     public EParkingSpotStatus ParkingSpotStatus { get; private set; }
     public TimeSpan TimeOfParking { get; private set; }
-    public decimal PriceOfParking { get; private set; }
+    public Decimal PriceOfParking { get; private set; }
 
     protected ParkingSpot() { }
 
@@ -24,9 +24,8 @@ public class ParkingSpot
     {
         ParkingSpotStatus = EParkingSpotStatus.finished;
         CarLeaveTime = DateTime.Now;
+        TimeOfParking = CarLeaveTime - CarEntryTime;
     }
-
-    public void CalcTimeOfParking() => TimeOfParking = CarLeaveTime - CarEntryTime;
 
     public void AddPriceOfParking(decimal price) => PriceOfParking = price;
 

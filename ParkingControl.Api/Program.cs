@@ -15,7 +15,7 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddControllers().AddFluentValidation();
 builder.Services.AddDbContext<AppDbContext>(op => 
-        op.UseSqlite(builder.Configuration.GetConnectionString("PCConnection")));
+        op.UseSqlServer(builder.Configuration.GetConnectionString("PCConnection")));
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();

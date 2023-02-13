@@ -25,6 +25,10 @@ public class ParkingSpotRepository : IParkingSpotRepository
         => await _context.parkingSpots
         .FirstOrDefaultAsync(x => x.LicensePlate.Equals(licensePlate) && x.ParkingSpotStatus == EParkingSpotStatus.parked);
 
-    public void Update(ParkingSpot parkingSpot)
-            => _context.Entry(parkingSpot).State = EntityState.Modified;
+    public async Task UpdateAsync(ParkingSpot parkingSpot)
+    {
+        _context.Entry(parkingSpot).State = EntityState.Modified;
+        await _context.SaveChangesAsync();
+    }
+            
 }

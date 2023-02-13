@@ -32,8 +32,7 @@ public class ParkingSpotService : IParkingSpotService
         if (parkingSpotResult is null)
             return null;
 
-        parkingSpotResult.FinishParkingSpot();
-        parkingSpotResult.CalcTimeOfParking();        
+        parkingSpotResult.FinishParkingSpot();       
 
         var parkingFeeResult = await _parkingFeeRepository.GetByCarEntryTime(parkingSpotResult.CarEntryTime);
         if (parkingFeeResult is null)
@@ -43,7 +42,7 @@ public class ParkingSpotService : IParkingSpotService
 
         parkingSpotResult.AddPriceOfParking(priceResult);
 
-        _parkingSpotRepository.Update(parkingSpotResult);
+        await _parkingSpotRepository.UpdateAsync(parkingSpotResult);
 
         return parkingSpotResult;
     }

@@ -15,22 +15,22 @@ public static class ParkingFeeCalcs
         if (ResultOfDivision > 0)
         {
             ValorAPagar += decimal.Multiply(parkingFee.FullHourPrice, (decimal)ResultOfDivision);
-            CalcAditionalValue(RemainderOfResultOfDivision, ValorAPagar);
+            CalcAditionalValue();
 
         }
         else
         {
-            CalcAditionalValue(RemainderOfResultOfDivision, ValorAPagar);
+            CalcAditionalValue();
         }
 
-        void CalcAditionalValue(double resultadoRestoDivisao, decimal valorAPagar)
+        void CalcAditionalValue()
         {
             if (RemainderOfResultOfDivision >= ParkingConstants.TOLERANCE_TIME_IN_MINUTES
-                    && RemainderOfResultOfDivision <= ParkingConstants.TOLERANCE_TIME_IN_MINUTES)
+                    && RemainderOfResultOfDivision <= ParkingConstants.HALF_HOUR_IN_MINUTES)
             {
                 ValorAPagar += parkingFee.FullHourPrice / ParkingConstants.NUMBER_TO_GET_HALF_VALUE;
             }
-            else
+            else if(RemainderOfResultOfDivision >= ParkingConstants.HALF_HOUR_IN_MINUTES)
             {
                 ValorAPagar += parkingFee.FullHourPrice;
             }

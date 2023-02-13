@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using ParkingControl.Data.DataContext;
@@ -11,31 +12,37 @@ using ParkingControl.Data.DataContext;
 namespace ParkingControl.Data.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20230212233229_PutTableParkingFee")]
-    partial class PutTableParkingFee
+    [Migration("20230213161501_GenerateBD")]
+    partial class GenerateBD
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
-            modelBuilder.HasAnnotation("ProductVersion", "6.0.13");
+            modelBuilder
+                .HasAnnotation("ProductVersion", "6.0.13")
+                .HasAnnotation("Relational:MaxIdentifierLength", 128);
+
+            SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder, 1L, 1);
 
             modelBuilder.Entity("ParkingControl.Domain.Entities.ParkingFee", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
                     b.Property<decimal>("AditionalHourPrice")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("decimal(18,2)");
 
                     b.Property<DateTime>("FinalValidityDate")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("datetime2");
 
                     b.Property<decimal>("FullHourPrice")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("decimal(18,2)");
 
                     b.Property<DateTime>("InitialValidityDate")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("datetime2");
 
                     b.HasKey("Id");
 
@@ -56,7 +63,9 @@ namespace ParkingControl.Data.Migrations
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
                     b.Property<DateTime>("CarEntryTime")
                         .HasColumnType("datetime2")
@@ -68,15 +77,16 @@ namespace ParkingControl.Data.Migrations
 
                     b.Property<string>("LicensePlate")
                         .IsRequired()
-                        .HasColumnType("TEXT")
+                        .HasMaxLength(8)
+                        .HasColumnType("nvarchar(8)")
                         .HasColumnName("col_placa_veiculo");
 
                     b.Property<int>("ParkingSpotStatus")
-                        .HasColumnType("INTEGER")
+                        .HasColumnType("int")
                         .HasColumnName("col_status_vaga");
 
                     b.Property<decimal>("PriceOfParking")
-                        .HasColumnType("time")
+                        .HasColumnType("money")
                         .HasColumnName("col_preco_estacionamento");
 
                     b.Property<TimeSpan>("TimeOfParking")
