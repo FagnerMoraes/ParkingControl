@@ -1,6 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using ParkingControl.Domain.Contexts.PargingSpots.Entities;
-using ParkingControl.Domain.Contexts.ParkingFees.Entities;
+using ParkingControl.Domain.Entities;
 using System.Reflection;
 
 namespace ParkingControl.Data.DataContext;

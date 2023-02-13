@@ -15,10 +15,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Contexts\ParkingFees\Mappings\" />
-  </ItemGroup>
-
-  <ItemGroup>
     <ProjectReference Include="..\ParkingControl.Domain\ParkingControl.Domain.csproj" />
   </ItemGroup>
 

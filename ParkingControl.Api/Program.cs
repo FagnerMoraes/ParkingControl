@@ -1,13 +1,13 @@
 using FluentValidation;
 using FluentValidation.AspNetCore;
 using Microsoft.EntityFrameworkCore;
-using ParkingControl.Application.Contexts.ParkingSpots.Contracts;
-using ParkingControl.Application.Contexts.ParkingSpots.DTOs.Request;
-using ParkingControl.Application.Contexts.ParkingSpots.Services;
-using ParkingControl.Data.Contexts.ParkingSpots.Repositories;
+using ParkingControl.Application.Contracts;
+using ParkingControl.Application.DTOs.Request;
+using ParkingControl.Application.Services;
+using ParkingControl.Application.Validations;
 using ParkingControl.Data.DataContext;
-using ParkingControl.Domain.Contexts.PargingSpots.Repositories;
-using ParkingControl.Domain.Contexts.ParkingSpots.Validations;
+using ParkingControl.Data.Repositories;
+using ParkingControl.Domain.Repositories;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -22,6 +22,7 @@ builder.Services.AddSwaggerGen();
 
 builder.Services.AddScoped<IParkingSpotRepository, ParkingSpotRepository>();
 builder.Services.AddScoped<IParkingSpotService, ParkingSpotService>();
+builder.Services.AddScoped<IParkingFeeRepository, ParkingFeeRepository>();
 
 
 builder.Services.AddTransient<IValidator<CreateParkingSpotRequest>, ParkingSpotValidation>();
