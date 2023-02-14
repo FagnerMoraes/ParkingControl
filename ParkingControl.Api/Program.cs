@@ -7,6 +7,7 @@ using ParkingControl.Application.Services;
 using ParkingControl.Application.Validations;
 using ParkingControl.Data.DataContext;
 using ParkingControl.Data.Repositories;
+using ParkingControl.Domain.Calcs;
 using ParkingControl.Domain.Repositories;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -23,6 +24,7 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddScoped<IParkingSpotRepository, ParkingSpotRepository>();
 builder.Services.AddScoped<IParkingSpotService, ParkingSpotService>();
 builder.Services.AddScoped<IParkingFeeRepository, ParkingFeeRepository>();
+builder.Services.AddScoped<IParkingFeeCalculations, ParkingFeeCalculations>();
 
 
 builder.Services.AddTransient<IValidator<CreateParkingSpotRequest>, ParkingSpotValidation>();

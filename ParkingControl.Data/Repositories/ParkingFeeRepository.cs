@@ -14,16 +14,12 @@ public class ParkingFeeRepository : IParkingFeeRepository
         _context = context;
     }
 
-    public async Task<ParkingFee?> GetByCarEntryTime(DateTime? date)
+    public async Task<ParkingFee?> GetByCarEntryTimeAsync(DateTime date)
     {
-       var query = from fees in _context.parkingFees
-                    select fees;
-
+        var query = _context.parkingFees.FromSqlInterpolated($@"SELECT TOP 1 * from dbo.tb_taxa_estacionamento as t 
+                                                                where  {date}
+                                                                BETWEEN t.InitialValidityDate and t.FinalValidityDate");
         var result = await query.FirstOrDefaultAsync();
-
-            
-            //await _context.parkingFees.Join(x => x.)
-            //.FirstOrDefaultAsync(x => x.InitialValidityDate >= date && x.FinalValidityDate <= date);
         return result;
     }
         

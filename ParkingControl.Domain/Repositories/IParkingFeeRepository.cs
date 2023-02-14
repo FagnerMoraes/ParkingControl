@@ -3,5 +3,5 @@
 namespace ParkingControl.Domain.Repositories;
 public interface IParkingFeeRepository
 {
-    Task<ParkingFee?> GetByCarEntryTime(DateTime? date);
+    Task<ParkingFee?> GetByCarEntryTimeAsync(DateTime date);
 }

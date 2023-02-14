@@ -1,4 +1,5 @@
-﻿using ParkingControl.Application.Contracts;
+﻿using Microsoft.AspNetCore.Mvc;
+using ParkingControl.Application.Contracts;
 using ParkingControl.Application.DTOs.Request;
 using ParkingControl.Domain.Calcs;
 using ParkingControl.Domain.Entities;
@@ -9,11 +10,17 @@ public class ParkingSpotService : IParkingSpotService
 {
     private readonly IParkingSpotRepository _parkingSpotRepository;
     private readonly IParkingFeeRepository _parkingFeeRepository;
+    private readonly IParkingFeeCalculations _parkingFeeCalculations;
 
-    public ParkingSpotService(IParkingSpotRepository parkingSpotRepository, IParkingFeeRepository parkingFeeRepository)
+
+
+    public ParkingSpotService(IParkingSpotRepository parkingSpotRepository,
+                              IParkingFeeRepository parkingFeeRepository,
+                              IParkingFeeCalculations parkingFeeCalculations)
     {
         _parkingSpotRepository = parkingSpotRepository;
         _parkingFeeRepository = parkingFeeRepository;
+        _parkingFeeCalculations = parkingFeeCalculations;
     }
 
     public async Task<int?> CreateAsync(CreateParkingSpotRequest request)
@@ -34,13 +41,14 @@ public class ParkingSpotService : IParkingSpotService
 
         parkingSpotResult.FinishParkingSpot();       
 
-        var parkingFeeResult = await _parkingFeeRepository.GetByCarEntryTime(parkingSpotResult.CarEntryTime);
+        var parkingFeeResult = await _parkingFeeRepository.GetByCarEntryTimeAsync(parkingSpotResult.CarEntryTime);
         if (parkingFeeResult is null)
             return null;
 
-        var priceResult = ParkingFeeCalcs.CalcValueFee(parkingSpotResult, parkingFeeResult);
-
+        var priceResult = _parkingFeeCalculations.CalculationHourValue(parkingSpotResult, parkingFeeResult);
         parkingSpotResult.AddPriceOfParking(priceResult);
+        var priceAditional = _parkingFeeCalculations.CalculationAditionalValue(parkingSpotResult, parkingFeeResult);
+        parkingSpotResult.AddPriceOfParking(priceAditional);
 
         await _parkingSpotRepository.UpdateAsync(parkingSpotResult);
 
