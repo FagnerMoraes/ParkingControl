@@ -19,7 +19,7 @@ namespace ParkingControl.Api.Controllers
         [HttpGet("estacionados")]
         public async Task<ActionResult<IEnumerable<ParkingSpotResponse>>> Get()
         {
-            var parkeds = await _parkingSpotService.GetAllParkedAsync();
+            var parkeds = await _parkingSpotService.GetAllAsync();
             return Ok(parkeds);
         }
 

@@ -24,9 +24,9 @@ public class ParkingSpotService : IParkingSpotService
         _parkingFeeCalculations = parkingFeeCalculations;
     }
 
-    public async Task<IEnumerable<ParkingSpotResponse>> GetAllParkedAsync()
+    public async Task<IEnumerable<ParkingSpotResponse>> GetAllAsync()
     {
-        var parkingSpots = await _parkingSpotRepository.GetAllParkedAsync();
+        var parkingSpots = await _parkingSpotRepository.GetAllAsync();
 
         List<ParkingSpotResponse> ListOfParkingSpot = new List<ParkingSpotResponse>();
 
@@ -49,9 +49,11 @@ public class ParkingSpotService : IParkingSpotService
         return id;
     }
 
-    public async Task<ParkingSpotResponse> FinishParkingSpotByLicensePlateAsync(string licensePlate)
+    public async Task<ParkingSpotResponse?> FinishParkingSpotByLicensePlateAsync(string licensePlate)
     {
-        var parkingSpotResult = await GetByLicensePlateAsync(licensePlate);
+
+        var parkingSpotResult = await _parkingSpotRepository.GetByLicensePlateAsync(licensePlate);
+        
         if (parkingSpotResult is null)
             return null;
 
@@ -73,13 +75,15 @@ public class ParkingSpotService : IParkingSpotService
 
     
 
-    public async Task<ParkingSpot?> GetByLicensePlateAsync(string licensePlate)
+    public async Task<ParkingSpotResponse?> GetByLicensePlateAsync(string licensePlate)
     {
         var parkingSpotResult = await _parkingSpotRepository.GetByLicensePlateAsync(licensePlate);
         if (parkingSpotResult is null)
             return null;
 
-        return parkingSpotResult;
+        ParkingSpotResponse parkingSpotResponse = parkingSpotResult;
+
+        return parkingSpotResponse;
     }
 
     public void Dispose() =>

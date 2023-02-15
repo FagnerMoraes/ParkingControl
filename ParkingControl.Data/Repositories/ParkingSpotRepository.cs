@@ -1,7 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using ParkingControl.Data.DataContext;
 using ParkingControl.Domain.Entities;
-using ParkingControl.Domain.Enums;
 using ParkingControl.Domain.Repositories;
 
 namespace ParkingControl.Data.Repositories;
@@ -25,13 +24,13 @@ public class ParkingSpotRepository : IParkingSpotRepository
 
 
 
-    public async Task<IEnumerable<ParkingSpot>> GetAllParkedAsync()  =>
-        await _context.parkingSpots.Where(x => x.ParkingSpotStatus == EParkingSpotStatus.parked).ToListAsync();       
+    public async Task<IEnumerable<ParkingSpot>> GetAllAsync()  =>
+        await _context.parkingSpots.ToListAsync();       
     
 
     public async Task<ParkingSpot?> GetByLicensePlateAsync(string licensePlate)
         => await _context.parkingSpots
-        .FirstOrDefaultAsync(x => x.LicensePlate.Equals(licensePlate) && x.ParkingSpotStatus == EParkingSpotStatus.parked);
+        .FirstOrDefaultAsync(x => x.LicensePlate.Contains(licensePlate));
 
     public async Task UpdateAsync(ParkingSpot parkingSpot)
     {

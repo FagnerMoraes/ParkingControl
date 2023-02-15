@@ -5,9 +5,9 @@ using ParkingControl.Domain.Entities;
 namespace ParkingControl.Application.Contracts;
 public interface IParkingSpotService : IDisposable 
 {
-    Task<IEnumerable<ParkingSpotResponse>> GetAllParkedAsync();
+    Task<IEnumerable<ParkingSpotResponse>> GetAllAsync();
     Task<int?> CreateAsync(CreateParkingSpotRequest request);
     Task<ParkingSpotResponse?> FinishParkingSpotByLicensePlateAsync(string licensePlate);
-    Task<ParkingSpot?> GetByLicensePlateAsync(string licensePlate);
+    Task<ParkingSpotResponse?> GetByLicensePlateAsync(string licensePlate);
 
 }
