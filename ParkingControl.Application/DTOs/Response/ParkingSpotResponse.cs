@@ -20,9 +20,6 @@ namespace ParkingControl.Application.DTOs.Response
 
         public static implicit operator ParkingSpotResponse(ParkingSpot parkingSpot)
         {
-            if (parkingSpot is null)
-                return default;
-
             return new ParkingSpotResponse
             {
                 Id = parkingSpot.Id,
