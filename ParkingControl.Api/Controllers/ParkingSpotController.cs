@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using ParkingControl.Application.Contracts;
 using ParkingControl.Application.DTOs.Request;
-using ParkingControl.Domain.Entities;
+using ParkingControl.Application.DTOs.Response;
 
 namespace ParkingControl.Api.Controllers
 {
@@ -16,6 +16,13 @@ namespace ParkingControl.Api.Controllers
             _parkingSpotService = parkingSpotService;
         }
 
+        [HttpGet("estacionados")]
+        public async Task<ActionResult<IEnumerable<ParkingSpotResponse>>> Get()
+        {
+            var parkeds = await _parkingSpotService.GetAllParkedAsync();
+            return Ok(parkeds);
+        }
+
         [HttpPost("iniciar-estadia")]
         public async Task<ActionResult<int>> Post(CreateParkingSpotRequest request)
         {
@@ -23,18 +30,18 @@ namespace ParkingControl.Api.Controllers
             var id = await _parkingSpotService.CreateAsync(request);
             if (id is null)
                 return BadRequest();
-            return Ok(id);
+            return Created("",id);
         }
 
         [HttpGet("obter-por-placa")]
-        public async Task<ActionResult<ParkingSpot>> Get(string licensePlate)
+        public async Task<ActionResult<ParkingSpotResponse>> GetByLicensePlate(string licensePlate)
         {
             var result = await _parkingSpotService.GetByLicensePlateAsync(licensePlate);
             return Ok(result);
         } 
 
         [HttpPut("finalizar-estadia")]
-        public async Task<ActionResult<ParkingSpot>> Put(string licensePlate)
+        public async Task<ActionResult<ParkingSpotResponse>> Put(string licensePlate)
         {
             var ParkSpotResult = await _parkingSpotService.FinishParkingSpotByLicensePlateAsync(licensePlate);
             return Ok();

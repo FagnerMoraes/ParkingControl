@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using ParkingControl.Application.Contracts;
 using ParkingControl.Application.DTOs.Request;
+using ParkingControl.Application.DTOs.Response;
 using ParkingControl.Domain.Calcs;
 using ParkingControl.Domain.Entities;
 using ParkingControl.Domain.Repositories;
@@ -23,6 +24,21 @@ public class ParkingSpotService : IParkingSpotService
         _parkingFeeCalculations = parkingFeeCalculations;
     }
 
+    public async Task<IEnumerable<ParkingSpotResponse>> GetAllParkedAsync()
+    {
+        var parkingSpots = await _parkingSpotRepository.GetAllParkedAsync();
+
+        List<ParkingSpotResponse> ListOfParkingSpot = new List<ParkingSpotResponse>();
+
+        foreach (var parkingSpot in parkingSpots)
+        {
+            ListOfParkingSpot.Add(parkingSpot);
+        }
+
+        return ListOfParkingSpot;
+
+    }
+
     public async Task<int?> CreateAsync(CreateParkingSpotRequest request)
     {
         ParkingSpot newParkingSpot = request;
@@ -33,7 +49,7 @@ public class ParkingSpotService : IParkingSpotService
         return id;
     }
 
-    public async Task<ParkingSpot?> FinishParkingSpotByLicensePlateAsync(string licensePlate)
+    public async Task<ParkingSpotResponse> FinishParkingSpotByLicensePlateAsync(string licensePlate)
     {
         var parkingSpotResult = await GetByLicensePlateAsync(licensePlate);
         if (parkingSpotResult is null)
@@ -55,6 +71,8 @@ public class ParkingSpotService : IParkingSpotService
         return parkingSpotResult;
     }
 
+    
+
     public async Task<ParkingSpot?> GetByLicensePlateAsync(string licensePlate)
     {
         var parkingSpotResult = await _parkingSpotRepository.GetByLicensePlateAsync(licensePlate);
@@ -63,4 +81,7 @@ public class ParkingSpotService : IParkingSpotService
 
         return parkingSpotResult;
     }
+
+    public void Dispose() =>
+        _parkingSpotRepository.Dispose();
 }

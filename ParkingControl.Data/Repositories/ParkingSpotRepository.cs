@@ -14,12 +14,20 @@ public class ParkingSpotRepository : IParkingSpotRepository
         _context = context;
     }
 
+    
+
     public async Task<int?> CreateAsync(ParkingSpot parkingSpot)
     {
         await _context.parkingSpots.AddAsync(parkingSpot);
         await _context.SaveChangesAsync();
         return parkingSpot.Id;
     }
+
+
+
+    public async Task<IEnumerable<ParkingSpot>> GetAllParkedAsync()  =>
+        await _context.parkingSpots.Where(x => x.ParkingSpotStatus == EParkingSpotStatus.parked).ToListAsync();       
+    
 
     public async Task<ParkingSpot?> GetByLicensePlateAsync(string licensePlate)
         => await _context.parkingSpots
@@ -30,5 +38,8 @@ public class ParkingSpotRepository : IParkingSpotRepository
         _context.Entry(parkingSpot).State = EntityState.Modified;
         await _context.SaveChangesAsync();
     }
-            
+
+    public void Dispose() =>
+    _context.Dispose();
+
 }
