@@ -5,6 +5,7 @@ using ParkingControl.Application.DTOs.Response;
 using ParkingControl.Domain.Calcs;
 using ParkingControl.Domain.Entities;
 using ParkingControl.Domain.Repositories;
+using ParkingControl.Domain.Enums;
 
 namespace ParkingControl.Application.Services;
 public class ParkingSpotService : IParkingSpotService
@@ -54,7 +55,7 @@ public class ParkingSpotService : IParkingSpotService
 
         var parkingSpotResult = await _parkingSpotRepository.GetByLicensePlateAsync(licensePlate);
         
-        if (parkingSpotResult is null)
+        if (parkingSpotResult is null || parkingSpotResult.ParkingSpotStatus == EParkingSpotStatus.finished)
             return null;
 
         parkingSpotResult.FinishParkingSpot();       

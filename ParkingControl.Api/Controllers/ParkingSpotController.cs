@@ -16,7 +16,7 @@ namespace ParkingControl.Api.Controllers
             _parkingSpotService = parkingSpotService;
         }
 
-        [HttpGet("estacionados")]
+        [HttpGet]
         public async Task<ActionResult<IEnumerable<ParkingSpotResponse>>> Get()
         {
             var parkeds = await _parkingSpotService.GetAllAsync();
@@ -37,6 +37,8 @@ namespace ParkingControl.Api.Controllers
         public async Task<ActionResult<ParkingSpotResponse>> GetByLicensePlate(string licensePlate)
         {
             var result = await _parkingSpotService.GetByLicensePlateAsync(licensePlate);
+            if(result is null)
+                return NotFound();
             return Ok(result);
         } 
 
@@ -44,6 +46,8 @@ namespace ParkingControl.Api.Controllers
         public async Task<ActionResult<ParkingSpotResponse>> Put(string licensePlate)
         {
             var ParkSpotResult = await _parkingSpotService.FinishParkingSpotByLicensePlateAsync(licensePlate);
+            if(ParkSpotResult is null)
+                return BadRequest();
             return Ok();
         }
     }
