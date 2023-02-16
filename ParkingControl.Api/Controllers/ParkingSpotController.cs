@@ -33,7 +33,7 @@ namespace ParkingControl.Api.Controllers
             return Created("",id);
         }
 
-        [HttpGet("obter-por-placa")]
+        [HttpGet("{licensePlate}")]
         public async Task<ActionResult<ParkingSpotResponse>> GetByLicensePlate(string licensePlate)
         {
             var result = await _parkingSpotService.GetByLicensePlateAsync(licensePlate);
@@ -42,7 +42,7 @@ namespace ParkingControl.Api.Controllers
             return Ok(result);
         } 
 
-        [HttpPut("finalizar-estadia")]
+        [HttpPut("{licensePlate}")]
         public async Task<ActionResult<ParkingSpotResponse>> Put(string licensePlate)
         {
             var ParkSpotResult = await _parkingSpotService.FinishParkingSpotByLicensePlateAsync(licensePlate);
