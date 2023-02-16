@@ -11,7 +11,7 @@ namespace ParkingControl.Application.DTOs.Response
         public string CarLeaveDate { get; set; } = string.Empty;
         public string CarLeaveTime { get; set; } = string.Empty;
         public string ParkingSpotStatus { get; set; } = string.Empty;
-        public string? TimeOfParking { get; set; }
+        public string TimeOfParking { get; set; } = string.Empty;
         public string PriceOfParking { get; set; } = string.Empty;
 
         public ParkingSpotResponse()
