@@ -25,7 +25,7 @@ public class ParkingSpotRepository : IParkingSpotRepository
 
 
     public async Task<IEnumerable<ParkingSpot>> GetAllAsync()  =>
-        await _context.parkingSpots.ToListAsync();       
+        await _context.parkingSpots.AsNoTracking().ToListAsync();       
     
 
     public async Task<ParkingSpot?> GetByLicensePlateAsync(string licensePlate)
