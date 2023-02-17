@@ -2,6 +2,6 @@
 namespace ParkingControl.Domain.Calcs;
 public interface IParkingFeeCalculations
 {
-    Decimal CalculationHourValue(ParkingSpot parkingSpot, ParkingFee parkingFee);
-    Decimal CalculationAditionalValue(ParkingSpot parkingSpot, ParkingFee parkingFee);
+    Decimal CalculationHourValue(double timeOfParking,Decimal FullHourPrice);
+    Decimal CalculationAditionalValue(TimeSpan timeOfParking, Decimal FullHourPrice, Decimal AditionalHourPrice);
 }

@@ -64,10 +64,15 @@ public class ParkingSpotService : IParkingSpotService
         if (parkingFeeResult is null)
             return null;
 
-        var priceResult = _parkingFeeCalculations.CalculationHourValue(parkingSpotResult, parkingFeeResult);
+        var priceResult = _parkingFeeCalculations
+            .CalculationHourValue(parkingSpotResult.TimeOfParking.TotalMinutes, parkingFeeResult.FullHourPrice);
+
         parkingSpotResult.AddPriceOfParking(priceResult);
-        var priceAditional = _parkingFeeCalculations.CalculationAditionalValue(parkingSpotResult, parkingFeeResult);
-        parkingSpotResult.AddPriceOfParking(priceAditional);
+        
+        var AditionalPrice = _parkingFeeCalculations
+            .CalculationAditionalValue(parkingSpotResult.TimeOfParking, parkingFeeResult.FullHourPrice, parkingFeeResult.AditionalHourPrice);
+        
+        parkingSpotResult.AddPriceOfParking(AditionalPrice);
 
         await _parkingSpotRepository.UpdateAsync(parkingSpotResult);
 

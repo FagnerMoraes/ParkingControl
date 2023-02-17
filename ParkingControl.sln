@@ -15,6 +15,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ParkingControl.Api", "Parki
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "test", "test", "{46D41A53-B55B-406F-9C92-4ED8E8260606}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ParkingControl.Test", "ParkingControl.Domain.Test\ParkingControl.Test.csproj", "{BF2A8EEE-805E-48D6-9B4C-973710681083}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -37,6 +39,10 @@ Global
 		{676CC27B-EF9C-443B-A921-BDA110826784}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{676CC27B-EF9C-443B-A921-BDA110826784}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{676CC27B-EF9C-443B-A921-BDA110826784}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BF2A8EEE-805E-48D6-9B4C-973710681083}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BF2A8EEE-805E-48D6-9B4C-973710681083}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BF2A8EEE-805E-48D6-9B4C-973710681083}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BF2A8EEE-805E-48D6-9B4C-973710681083}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -46,6 +52,7 @@ Global
 		{6C170A98-C50E-4287-94D0-85662C37336B} = {1D0FA8E2-0030-4177-ADC9-6AB4C439F865}
 		{B13483C7-E8D2-496E-A9A2-28F6D4D1C1BC} = {1D0FA8E2-0030-4177-ADC9-6AB4C439F865}
 		{676CC27B-EF9C-443B-A921-BDA110826784} = {1D0FA8E2-0030-4177-ADC9-6AB4C439F865}
+		{BF2A8EEE-805E-48D6-9B4C-973710681083} = {46D41A53-B55B-406F-9C92-4ED8E8260606}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {DE8230AB-8A0F-4863-AB86-5A13D515FA3F}
