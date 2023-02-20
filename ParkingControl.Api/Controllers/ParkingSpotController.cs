@@ -27,11 +27,13 @@ namespace ParkingControl.Api.Controllers
         [HttpPost("iniciar-estadia")]
         public async Task<ActionResult<string>> Post(CreateParkingSpotRequest request)
         {
+
             if (ModelState.IsValid)
             {
                 ParkingSpotResponse parkingSpot = await _parkingSpotService.CreateAsync(request);
-                return CreatedAtAction(nameof(GetByLicensePlate),new {licensePlate = parkingSpot.LicensePlate } ,parkingSpot.LicensePlate);
+                return CreatedAtAction(nameof(GetByLicensePlate), new { licensePlate = parkingSpot.LicensePlate }, parkingSpot.LicensePlate);
             }
+            
             return BadRequest();
         }
 

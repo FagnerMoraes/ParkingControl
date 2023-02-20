@@ -11,7 +11,6 @@ public class ParkingSpot
     public TimeSpan TimeOfParking { get; private set; }
     public Decimal PriceOfParking { get; private set; } = 0.00m;
 
-    protected ParkingSpot() { }
 
     public ParkingSpot(string licensePlate)
     {

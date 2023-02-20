@@ -1,4 +1,7 @@
-﻿using ParkingControl.Application.Contracts;
+﻿using NSubstitute.Extensions;
+using ParkingControl.Application.Contracts;
+using ParkingControl.Application.DTOs.Request;
+using ParkingControl.Application.DTOs.Response;
 using ParkingControl.Application.Services;
 using ParkingControl.Domain.Calcs;
 using ParkingControl.Domain.Entities;
@@ -52,42 +55,26 @@ public class ParkingSpotServiceTest
     }
 
     [Fact]
-    public async Task Deve_Retornar_Null_Ao_Tentar_Criar_Entidade()
-    {
-        //Arrange
-        var createRequest = _createParkingSpotRequestTest.GerarEntidadeValida();
-        ParkingSpot parkingSpot = createRequest;
-        object? licensePlate = null;
-        _parkingSpotRepository.CreateAsync(parkingSpot).Returns(licensePlate);
-
-        //Act
-        var ParkingSpotID = await _parkingSpotService.CreateAsync(createRequest);
-
-        //Assert
-        ParkingSpotID.Should().BeNull();
-    }
-
-    [Fact]
     public async Task Deve_Retornar_Placa_Veiculo_Ao_Criar_Entidade()
     {
         //Arrange
         var createRequest = _createParkingSpotRequestTest.GerarEntidadeValida();
-        ParkingSpot parkingSpot = new ParkingSpot("AAA1111");
+        ParkingSpot parkingSpot = createRequest;
         string licensePlate = "AAA1111";
-        _parkingSpotRepository.CreateAsync(parkingSpot).Returns(parkingSpot);
-      
+        _parkingSpotRepository.CreateAsync(parkingSpot).ReturnsForAnyArgs(parkingSpot);
+
         //Act
-        var ParkingSpot = await _parkingSpotService.CreateAsync(createRequest);
+        ParkingSpotResponse parkingSpotResponse = await _parkingSpotService.CreateAsync(createRequest);
 
         //Assert
-        ParkingSpot.LicensePlate.Should().Be(licensePlate);
+        parkingSpotResponse.LicensePlate.Should().Be(licensePlate);
     }
 
     [Fact]
     public async Task Ao_Finalizar_Estadia_Com_Entidade_Nula_Deve_Retornar_Null()
     {
         //Arrange
-        ParkingSpot parkingSpot = null;
+        ParkingSpot? parkingSpot = null;
         string licensePlate = "AAA1111";
         _parkingSpotRepository.GetByLicensePlateAsync(licensePlate).Returns(parkingSpot);
 
@@ -125,7 +112,7 @@ public class ParkingSpotServiceTest
         
         _parkingSpotRepository.GetByLicensePlateAsync(licensePlate).Returns(parkingSpot);
 
-        ParkingFee parkingFee = null;
+        ParkingFee? parkingFee = null;
 
         _parkingFeeRepository.GetByCarEntryTimeAsync(parkingSpot.CarEntryTime).Returns(parkingFee);
 
@@ -156,7 +143,7 @@ public class ParkingSpotServiceTest
 
 
         //Act
-        var parkingSpotResult = await _parkingSpotService.FinishParkingSpotByLicensePlateAsync(licensePlate);
+        ParkingSpotResponse? parkingSpotResult = await _parkingSpotService.FinishParkingSpotByLicensePlateAsync(licensePlate);
 
         //Assert
         parkingSpotResult.PriceOfParking.Should().Be("3,00");

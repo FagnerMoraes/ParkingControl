@@ -14,6 +14,7 @@ namespace ParkingControl.Test.Domain.Calculations
         [InlineData(75, 2.0, 1.0, 3.00)]
         [InlineData(125, 2.0, 1.0, 4.00)]
         [InlineData(135, 2.0, 1.0, 5.00)]
+        [InlineData(155, 2.0, 1.0, 6.00)]
         public void Deve_Retornar_O_Valor_Da_Estadia(
             int timeOfParkingInMinutes, Decimal FullHourPrice,
             Decimal HalfHourPrice, decimal resultExpected)

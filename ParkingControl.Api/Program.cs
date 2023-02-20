@@ -1,8 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 using ParkingControl.Application.Contracts;
-using ParkingControl.Application.DTOs.Request;
 using ParkingControl.Application.Services;
-using ParkingControl.Application.Validations;
 using ParkingControl.Data.DataContext;
 using ParkingControl.Data.Repositories;
 using ParkingControl.Domain.Calcs;

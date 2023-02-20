@@ -13,7 +13,7 @@ public class ParkingSpotRepository : IParkingSpotRepository
         _context = context;
     }
 
-    public async Task<object> CreateAsync(ParkingSpot parkingSpot)
+    public async Task<ParkingSpot> CreateAsync(ParkingSpot parkingSpot)
     {
         await _context.parkingSpots.AddAsync(parkingSpot);
         await _context.SaveChangesAsync();

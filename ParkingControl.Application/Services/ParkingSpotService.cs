@@ -40,11 +40,8 @@ public class ParkingSpotService : IParkingSpotService
 
     public async Task<ParkingSpotResponse> CreateAsync(CreateParkingSpotRequest newParkingSpot)
     {
-        ParkingSpot parkingSpot = (ParkingSpot)await _parkingSpotRepository.CreateAsync(newParkingSpot);
-        if (parkingSpot is null)
-            return null;
-        ParkingSpotResponse parkingSpotResponse = parkingSpot;
-
+        ParkingSpot parkingSpot = newParkingSpot;
+        ParkingSpotResponse parkingSpotResponse =  await _parkingSpotRepository.CreateAsync(parkingSpot);
         return parkingSpotResponse;
     }
 
