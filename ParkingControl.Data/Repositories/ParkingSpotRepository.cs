@@ -13,24 +13,25 @@ public class ParkingSpotRepository : IParkingSpotRepository
         _context = context;
     }
 
-    
-
-    public async Task<int?> CreateAsync(ParkingSpot parkingSpot)
+    public async Task<object> CreateAsync(ParkingSpot parkingSpot)
     {
         await _context.parkingSpots.AddAsync(parkingSpot);
         await _context.SaveChangesAsync();
-        return parkingSpot.Id;
+        return parkingSpot;
     }
 
-
-
     public async Task<IEnumerable<ParkingSpot>> GetAllAsync()  =>
-        await _context.parkingSpots.AsNoTracking().OrderByDescending(x => x.CarEntryTime).ToListAsync();       
+        await _context.parkingSpots.AsNoTracking().ToListAsync();       
     
 
     public async Task<ParkingSpot?> GetByLicensePlateAsync(string licensePlate)
-        => await _context.parkingSpots
-        .FirstOrDefaultAsync(x => x.LicensePlate.Contains(licensePlate));
+    {
+      var result =  await _context.parkingSpots
+        .FirstOrDefaultAsync(x => x.LicensePlate == licensePlate);
+
+        return result ?? null;
+    }
+       
 
     public async Task UpdateAsync(ParkingSpot parkingSpot)
     {

@@ -6,7 +6,7 @@ namespace ParkingControl.Application.Contracts;
 public interface IParkingSpotService : IDisposable 
 {
     Task<IEnumerable<ParkingSpotResponse>> GetAllAsync();
-    Task<int?> CreateAsync(CreateParkingSpotRequest request);
+    Task<ParkingSpotResponse> CreateAsync(CreateParkingSpotRequest parkingSpot);
     Task<ParkingSpotResponse?> FinishParkingSpotByLicensePlateAsync(string licensePlate);
     Task<ParkingSpotResponse?> GetByLicensePlateAsync(string licensePlate);
 

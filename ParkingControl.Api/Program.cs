@@ -1,5 +1,3 @@
-using FluentValidation;
-using FluentValidation.AspNetCore;
 using Microsoft.EntityFrameworkCore;
 using ParkingControl.Application.Contracts;
 using ParkingControl.Application.DTOs.Request;
@@ -14,7 +12,7 @@ var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 
-builder.Services.AddControllers().AddFluentValidation();
+builder.Services.AddControllers();
 builder.Services.AddDbContext<AppDbContext>(op => 
         op.UseSqlServer(builder.Configuration.GetConnectionString("PCConnection")));
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
@@ -32,8 +30,6 @@ builder.Services.AddScoped<IParkingSpotService, ParkingSpotService>();
 builder.Services.AddScoped<IParkingFeeRepository, ParkingFeeRepository>();
 builder.Services.AddScoped<IParkingFeeCalculations, ParkingFeeCalculations>();
 
-
-builder.Services.AddTransient<IValidator<CreateParkingSpotRequest>, ParkingSpotValidation>();
 
 var app = builder.Build();
 

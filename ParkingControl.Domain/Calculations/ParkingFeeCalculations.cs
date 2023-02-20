@@ -1,26 +1,25 @@
-﻿using ParkingControl.Domain.Entities;
-using ParkingControl.Domain.Shared;
+﻿using ParkingControl.Domain.Shared;
 
 namespace ParkingControl.Domain.Calcs;
 public class ParkingFeeCalculations : IParkingFeeCalculations
 {
-    public Decimal CalculationHourValue(double timeOfParkinginMinutes, Decimal fullHourPrice)
+    public Decimal CalculationHourValue(int timeOfParkingInMinutes, Decimal fullHourPrice)
     {
         Decimal ValueToPay = 0.00m;
-        double ResultOfDivision = timeOfParkinginMinutes / ParkingConstants.FULL_HOUR_IN_MINUTES;
+        var ResultOfDivision = timeOfParkingInMinutes / ParkingConstants.FULL_HOUR_IN_MINUTES;
 
-        if (ResultOfDivision > 0)
-            ValueToPay += decimal.Multiply(fullHourPrice, (decimal)ResultOfDivision);
+        if (ResultOfDivision >= 1)
+            ValueToPay += decimal.Multiply(fullHourPrice, ResultOfDivision);
 
         return ValueToPay;
     }
 
-   public Decimal CalculationAditionalValue(TimeSpan timeOfParking, Decimal fullHourPrice, Decimal aditionalHourPrice)
+   public Decimal CalculationAditionalValue(int timeOfParkingInMinutes, Decimal fullHourPrice, Decimal aditionalHourPrice)
     {
         Decimal ValueToPay = 0.00m;
-        var RemainderOfResultOfDivision = (int)timeOfParking.TotalMinutes % ParkingConstants.FULL_HOUR_IN_MINUTES;
+        var RemainderOfResultOfDivision = timeOfParkingInMinutes % ParkingConstants.FULL_HOUR_IN_MINUTES;
 
-        if (RemainderOfResultOfDivision >= ParkingConstants.TOLERANCE_TIME_IN_MINUTES
+        if (RemainderOfResultOfDivision > ParkingConstants.TOLERANCE_TIME_IN_MINUTES
                 && RemainderOfResultOfDivision <= ParkingConstants.HALF_HOUR_IN_MINUTES)
         {
             ValueToPay += aditionalHourPrice;

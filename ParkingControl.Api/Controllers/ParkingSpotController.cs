@@ -2,6 +2,7 @@
 using ParkingControl.Application.Contracts;
 using ParkingControl.Application.DTOs.Request;
 using ParkingControl.Application.DTOs.Response;
+using ParkingControl.Domain.Entities;
 
 namespace ParkingControl.Api.Controllers
 {
@@ -24,13 +25,14 @@ namespace ParkingControl.Api.Controllers
         }
 
         [HttpPost("iniciar-estadia")]
-        public async Task<ActionResult<int>> Post(CreateParkingSpotRequest request)
+        public async Task<ActionResult<string>> Post(CreateParkingSpotRequest request)
         {
-            
-            var id = await _parkingSpotService.CreateAsync(request);
-            if (id is null)
-                return BadRequest();
-            return Created("",id);
+            if (ModelState.IsValid)
+            {
+                ParkingSpotResponse parkingSpot = await _parkingSpotService.CreateAsync(request);
+                return CreatedAtAction(nameof(GetByLicensePlate),new {licensePlate = parkingSpot.LicensePlate } ,parkingSpot.LicensePlate);
+            }
+            return BadRequest();
         }
 
         [HttpGet("{licensePlate}")]

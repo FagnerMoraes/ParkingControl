@@ -30,7 +30,7 @@ namespace ParkingControl.Application.DTOs.Response
                 CarLeaveTime = parkingSpot.CarLeaveTime.ToShortTimeString(),
                 ParkingSpotStatus = parkingSpot.ParkingSpotStatus.ToString(),
                 TimeOfParking = parkingSpot.TimeOfParking.ToString(@"hh\:mm\:ss"),
-                PriceOfParking = parkingSpot.PriceOfParking.ToString(" 0.00")
+                PriceOfParking = parkingSpot.PriceOfParking.ToString("0.00")
             };
         }
     }

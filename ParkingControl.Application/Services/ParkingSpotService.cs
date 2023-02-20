@@ -35,24 +35,21 @@ public class ParkingSpotService : IParkingSpotService
         {
             ListOfParkingSpot.Add(parkingSpot);
         }
-
         return ListOfParkingSpot;
-
     }
 
-    public async Task<int?> CreateAsync(CreateParkingSpotRequest request)
+    public async Task<ParkingSpotResponse> CreateAsync(CreateParkingSpotRequest newParkingSpot)
     {
-        ParkingSpot newParkingSpot = request;
-        var id = (int)await _parkingSpotRepository.CreateAsync(newParkingSpot);
-        if (id == 0)
+        ParkingSpot parkingSpot = (ParkingSpot)await _parkingSpotRepository.CreateAsync(newParkingSpot);
+        if (parkingSpot is null)
             return null;
+        ParkingSpotResponse parkingSpotResponse = parkingSpot;
 
-        return id;
+        return parkingSpotResponse;
     }
 
     public async Task<ParkingSpotResponse?> FinishParkingSpotByLicensePlateAsync(string licensePlate)
     {
-
         var parkingSpotResult = await _parkingSpotRepository.GetByLicensePlateAsync(licensePlate);
         
         if (parkingSpotResult is null || parkingSpotResult.ParkingSpotStatus == EParkingSpotStatus.finished)
@@ -65,12 +62,12 @@ public class ParkingSpotService : IParkingSpotService
             return null;
 
         var priceResult = _parkingFeeCalculations
-            .CalculationHourValue(parkingSpotResult.TimeOfParking.TotalMinutes, parkingFeeResult.FullHourPrice);
+            .CalculationHourValue((int)parkingSpotResult.TimeOfParking.TotalMinutes, parkingFeeResult.FullHourPrice);
 
         parkingSpotResult.AddPriceOfParking(priceResult);
         
         var AditionalPrice = _parkingFeeCalculations
-            .CalculationAditionalValue(parkingSpotResult.TimeOfParking, parkingFeeResult.FullHourPrice, parkingFeeResult.AditionalHourPrice);
+            .CalculationAditionalValue((int)parkingSpotResult.TimeOfParking.TotalMinutes, parkingFeeResult.FullHourPrice, parkingFeeResult.AditionalHourPrice);
         
         parkingSpotResult.AddPriceOfParking(AditionalPrice);
 
@@ -78,8 +75,6 @@ public class ParkingSpotService : IParkingSpotService
 
         return parkingSpotResult;
     }
-
-    
 
     public async Task<ParkingSpotResponse?> GetByLicensePlateAsync(string licensePlate)
     {
