@@ -12,7 +12,7 @@ namespace ParkingControl.Application.DTOs.Response
         public string CarLeaveTime { get; set; } = string.Empty;
         public string ParkingSpotStatus { get; set; } = string.Empty;
         public string TimeOfParking { get; set; } = string.Empty;
-        public string PriceOfParking { get; set; } = string.Empty;
+        public decimal PriceOfParking { get; set; }
 
         public ParkingSpotResponse()
         {
@@ -30,7 +30,7 @@ namespace ParkingControl.Application.DTOs.Response
                 CarLeaveTime = parkingSpot.CarLeaveTime.ToShortTimeString(),
                 ParkingSpotStatus = parkingSpot.ParkingSpotStatus.ToString(),
                 TimeOfParking = parkingSpot.TimeOfParking.ToString(@"hh\:mm\:ss"),
-                PriceOfParking = parkingSpot.PriceOfParking.ToString("0.00")
+                PriceOfParking = parkingSpot.PriceOfParking
             };
         }
     }

@@ -146,7 +146,7 @@ public class ParkingSpotServiceTest
         ParkingSpotResponse? parkingSpotResult = await _parkingSpotService.FinishParkingSpotByLicensePlateAsync(licensePlate);
 
         //Assert
-        parkingSpotResult.PriceOfParking.Should().Be("3,00");
+        parkingSpotResult.PriceOfParking.Should().Be(3.00m);
 
     }
 
