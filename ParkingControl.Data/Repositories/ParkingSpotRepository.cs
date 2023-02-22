@@ -20,8 +20,11 @@ public class ParkingSpotRepository : IParkingSpotRepository
         return parkingSpot;
     }
 
-    public async Task<IEnumerable<ParkingSpot>> GetAllAsync()  =>
-        await _context.parkingSpots.AsNoTracking().OrderByDescending(x => x.CarEntryTime).ToListAsync();       
+    public async Task<IEnumerable<ParkingSpot>> GetAllAsync(){
+        var result = await _context.parkingSpots.AsNoTracking().ToListAsync();
+        return result.OrderByDescending(x => x.CarEntryTime);
+    }  
+              
     
 
     public async Task<ParkingSpot?> GetByLicensePlateAsync(string licensePlate)

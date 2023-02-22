@@ -5,7 +5,7 @@ namespace ParkingControl.Application.DTOs.Request
 {
     public class CreateParkingSpotRequest
     {
-        [Required(ErrorMessage ="Campo Obrigatorio")]
+        [Required(ErrorMessage = "A placa do veículo é obrigatória.")]
         [StringLength(8,ErrorMessage = "Campo {0} deve possuir entre {2} e {1} caracteres", MinimumLength = 7)]
         public string LicensePlate { get; set; } = string.Empty;
 

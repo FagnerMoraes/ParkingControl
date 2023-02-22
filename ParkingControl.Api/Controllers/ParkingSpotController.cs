@@ -25,7 +25,7 @@ namespace ParkingControl.Api.Controllers
         }
 
         [HttpPost("iniciar-estadia")]
-        public async Task<ActionResult<string>> Post(CreateParkingSpotRequest request)
+        public async Task<ActionResult> Post(CreateParkingSpotRequest request)
         {
 
             if (ModelState.IsValid)
@@ -38,22 +38,23 @@ namespace ParkingControl.Api.Controllers
             return BadRequest();
         }
 
-        [HttpGet("{licensePlate}")]
-        public async Task<ActionResult<ParkingSpotResponse>> GetByLicensePlate(string licensePlate)
-        {
-            var result = await _parkingSpotService.GetByLicensePlateAsync(licensePlate);
-            if(result is null)
-                return NotFound();
-            return Ok(result);
-        } 
+        //[HttpGet("{licensePlate}")]
+        //public async Task<ActionResult<ParkingSpotResponse>> GetByLicensePlate(string licensePlate)
+        //{
+        //    var result = await _parkingSpotService.GetByLicensePlateAsync(licensePlate);
+        //    if(result is null)
+        //        return NotFound();
+        //    return Ok(result);
+        //} 
 
         [HttpPut("{licensePlate}")]
-        public async Task<ActionResult<ParkingSpotResponse>> Put(string licensePlate)
+        public async Task<ActionResult> Put(string licensePlate)
         {
             var ParkSpotResult = await _parkingSpotService.FinishParkingSpotByLicensePlateAsync(licensePlate);
             if(ParkSpotResult is null)
                 return BadRequest();
-            return Ok();
+
+            return NoContent();
         }
     }
 }
