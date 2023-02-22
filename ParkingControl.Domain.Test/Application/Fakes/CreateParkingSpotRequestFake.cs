@@ -1,12 +1,13 @@
 ﻿using ParkingControl.Application.DTOs.Request;
+using ParkingControl.Domain.Entities;
 using ParkingControl.Test.Base;
 
 namespace ParkingControl.Test.Application.Fakes;
-public class CreateParkingSpotRequestTest : IFake<CreateParkingSpotRequest>
+public class CreateParkingSpotRequestFake : IFake<CreateParkingSpotRequest>
 {
     private readonly Fixture _fixture;
 
-    public CreateParkingSpotRequestTest(Fixture fixture)
+    public CreateParkingSpotRequestFake(Fixture fixture)
     {
         _fixture = fixture;
     }
@@ -20,6 +21,7 @@ public class CreateParkingSpotRequestTest : IFake<CreateParkingSpotRequest>
 
         return request;
     }
+   
 
     public CreateParkingSpotRequest GerarEntidadeValida()
     {
@@ -29,5 +31,10 @@ public class CreateParkingSpotRequestTest : IFake<CreateParkingSpotRequest>
             .Create();
 
         return request;
+    }
+
+    public CreateParkingSpotRequest ConvertToEntity()
+    {
+        throw new NotImplementedException();
     }
 }

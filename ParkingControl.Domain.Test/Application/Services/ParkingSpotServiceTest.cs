@@ -18,7 +18,7 @@ public class ParkingSpotServiceTest
     private readonly ParkingSpotService _parkingSpotService;
     private readonly ParkingFee _parkingFee;
     private readonly Fixture _fixture;
-    private readonly CreateParkingSpotRequestTest _createParkingSpotRequestTest;
+    private readonly CreateParkingSpotRequestFake _createParkingSpotRequestTest;
 
 
 
@@ -31,7 +31,7 @@ public class ParkingSpotServiceTest
 
         _parkingFee = new ParkingFee(1, new DateTime(2023, 01, 01, 00, 00, 01), new DateTime(2023, 12, 31, 23, 59, 59), 2.00m, 1.00m);
         _fixture = new Fixture();
-        _createParkingSpotRequestTest = new CreateParkingSpotRequestTest(_fixture);
+        _createParkingSpotRequestTest = new CreateParkingSpotRequestFake(_fixture);
     }
 
     [Fact]

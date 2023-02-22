@@ -31,7 +31,8 @@ namespace ParkingControl.Api.Controllers
             if (ModelState.IsValid)
             {
                 ParkingSpotResponse parkingSpot = await _parkingSpotService.CreateAsync(request);
-                return CreatedAtAction(nameof(GetByLicensePlate), new { licensePlate = parkingSpot.LicensePlate }, parkingSpot.LicensePlate);
+                    return Created("",parkingSpot);
+                //return CreatedAtAction(nameof(GetByLicensePlate), new { licensePlate = parkingSpot.LicensePlate }, parkingSpot.LicensePlate);
             }
             
             return BadRequest();
