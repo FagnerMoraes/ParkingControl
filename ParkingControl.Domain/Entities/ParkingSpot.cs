@@ -4,7 +4,7 @@ namespace ParkingControl.Domain.Entities;
 public class ParkingSpot
 {
     public int Id { get; private set; }
-    public string LicensePlate { get; private set; } = string.Empty;
+    public string? LicensePlate { get; private set; }
     public DateTime CarEntryTime { get; private set; }
     public DateTime CarLeaveTime { get; private set; }
     public EParkingSpotStatus ParkingSpotStatus { get; private set; }

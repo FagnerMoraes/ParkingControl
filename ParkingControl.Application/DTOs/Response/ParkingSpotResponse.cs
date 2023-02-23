@@ -5,14 +5,14 @@ namespace ParkingControl.Application.DTOs.Response
 {
     public class ParkingSpotResponse
     {
-        public string LicensePlate { get; set; } = string.Empty;
-        public string CarEntryDate { get; set; } = string.Empty;
-        public string CarEntryTime { get; set; } = string.Empty;
-        public string CarLeaveDate { get; set; } = string.Empty;
-        public string CarLeaveTime { get; set; } = string.Empty;
-        public string ParkingSpotStatus { get; set; } = string.Empty;
-        public string TimeOfParking { get; set; } = string.Empty;
-        public decimal PriceOfParking { get; set; }
+        public string? LicensePlate { get; set; }
+        public string? CarEntryDate { get; set; }
+        public string? CarEntryTime { get; set; } 
+        public string? CarLeaveDate { get; set; } 
+        public string? CarLeaveTime { get; set; } 
+        public string? ParkingSpotStatus { get; set; } 
+        public string? TimeOfParking { get; set; } 
+        public decimal? PriceOfParking { get; set; }
 
         public ParkingSpotResponse()
         {

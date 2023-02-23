@@ -3,7 +3,7 @@ using ParkingControl.Application.DTOs.Response;
 using ParkingControl.Domain.Entities;
 
 namespace ParkingControl.Application.Contracts;
-public interface IParkingSpotService : IDisposable 
+public interface IParkingSpotService 
 {
     Task<IEnumerable<ParkingSpotResponse>> GetAllAsync();
     Task<ParkingSpotResponse> CreateAsync(CreateParkingSpotRequest parkingSpot);

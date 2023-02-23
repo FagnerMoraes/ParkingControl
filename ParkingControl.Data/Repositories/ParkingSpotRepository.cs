@@ -17,13 +17,12 @@ public class ParkingSpotRepository : IParkingSpotRepository
     {
         await _context.parkingSpots.AddAsync(parkingSpot);
         await _context.SaveChangesAsync();
+
         return parkingSpot;
     }
 
-    public async Task<IEnumerable<ParkingSpot>> GetAllAsync(){
-        var result = await _context.parkingSpots.AsNoTracking().ToListAsync();
-        return result.OrderByDescending(x => x.CarEntryTime);
-    }  
+    public async Task<IEnumerable<ParkingSpot>> GetAllAsync() => 
+        await _context.parkingSpots.AsNoTracking().OrderByDescending(x => x.CarEntryTime).ToListAsync();    
               
     
 
@@ -42,7 +41,5 @@ public class ParkingSpotRepository : IParkingSpotRepository
         await _context.SaveChangesAsync();
     }
 
-    public void Dispose() =>
-    _context.Dispose();
 
 }

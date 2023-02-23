@@ -1,7 +1,7 @@
 ﻿using ParkingControl.Domain.Entities;
 
 namespace ParkingControl.Domain.Repositories;
-public interface IParkingSpotRepository : IDisposable
+public interface IParkingSpotRepository
 {
     Task<IEnumerable<ParkingSpot>> GetAllAsync();
     Task<ParkingSpot> CreateAsync(ParkingSpot parkingSpot);

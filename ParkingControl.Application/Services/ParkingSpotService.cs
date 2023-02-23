@@ -29,19 +29,21 @@ public class ParkingSpotService : IParkingSpotService
     {
         var parkingSpots = await _parkingSpotRepository.GetAllAsync();
 
-        List<ParkingSpotResponse> ListOfParkingSpot = new List<ParkingSpotResponse>();
+        var ListOfParkingSpot = new List<ParkingSpotResponse>();
 
         foreach (var parkingSpot in parkingSpots)
         {
             ListOfParkingSpot.Add(parkingSpot);
         }
+
         return ListOfParkingSpot;
     }
 
     public async Task<ParkingSpotResponse> CreateAsync(CreateParkingSpotRequest newParkingSpot)
     {
         ParkingSpot parkingSpot = newParkingSpot;
-        ParkingSpotResponse parkingSpotResponse =  await _parkingSpotRepository.CreateAsync(parkingSpot);
+        var parkingSpotResponse =  await _parkingSpotRepository.CreateAsync(parkingSpot);
+
         return parkingSpotResponse;
     }
 
@@ -55,6 +57,7 @@ public class ParkingSpotService : IParkingSpotService
         parkingSpotResult.FinishParkingSpot();       
 
         var parkingFeeResult = await _parkingFeeRepository.GetByCarEntryTimeAsync(parkingSpotResult.CarEntryTime);
+
         if (parkingFeeResult is null)
             return null;
 
@@ -84,6 +87,4 @@ public class ParkingSpotService : IParkingSpotService
         return parkingSpotResponse;
     }
 
-    public void Dispose() =>
-        _parkingSpotRepository.Dispose();
 }

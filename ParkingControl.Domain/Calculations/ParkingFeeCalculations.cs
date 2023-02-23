@@ -5,31 +5,31 @@ public class ParkingFeeCalculations : IParkingFeeCalculations
 {
     public Decimal CalculationHourValue(int timeOfParkingInMinutes, Decimal fullHourPrice)
     {
-        Decimal ValueToPay = 0.00m;
-        var ResultOfDivision = timeOfParkingInMinutes / ParkingConstants.FULL_HOUR_IN_MINUTES;
+        Decimal valueToPay = 0.00m;
+        var resultOfDivision = timeOfParkingInMinutes / ParkingConstants.FULL_HOUR_IN_MINUTES;
 
-        if (ResultOfDivision >= 1)
-            ValueToPay += decimal.Multiply(fullHourPrice, ResultOfDivision);
+        if (resultOfDivision >= 1)
+            valueToPay += decimal.Multiply(fullHourPrice, resultOfDivision);
 
-        return ValueToPay;
+        return valueToPay;
     }
 
    public Decimal CalculationAditionalValue(int timeOfParkingInMinutes, Decimal fullHourPrice, Decimal aditionalHourPrice)
     {
-        Decimal ValueToPay = 0.00m;
-        var RemainderOfResultOfDivision = timeOfParkingInMinutes % ParkingConstants.FULL_HOUR_IN_MINUTES;
+        Decimal valueToPay = 0.00m;
+        var remainderOfResultOfDivision = timeOfParkingInMinutes % ParkingConstants.FULL_HOUR_IN_MINUTES;
 
-        if (RemainderOfResultOfDivision > ParkingConstants.TOLERANCE_TIME_IN_MINUTES
-                && RemainderOfResultOfDivision <= ParkingConstants.HALF_HOUR_IN_MINUTES)
+        if (remainderOfResultOfDivision > ParkingConstants.TOLERANCE_TIME_IN_MINUTES
+                && remainderOfResultOfDivision <= ParkingConstants.HALF_HOUR_IN_MINUTES)
         {
-            ValueToPay += aditionalHourPrice;
+            valueToPay += aditionalHourPrice;
         }
-        else if (RemainderOfResultOfDivision >= ParkingConstants.HALF_HOUR_IN_MINUTES)
+        else if (remainderOfResultOfDivision >= ParkingConstants.HALF_HOUR_IN_MINUTES)
         {
-            ValueToPay += fullHourPrice;
+            valueToPay += fullHourPrice;
         }
 
-        return ValueToPay;
+        return valueToPay;
     }
 }
 

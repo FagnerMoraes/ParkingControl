@@ -2,7 +2,7 @@
 using ParkingControl.Application.Contracts;
 using ParkingControl.Application.DTOs.Request;
 using ParkingControl.Application.DTOs.Response;
-using ParkingControl.Domain.Entities;
+
 
 namespace ParkingControl.Api.Controllers
 {
@@ -18,9 +18,13 @@ namespace ParkingControl.Api.Controllers
         }
 
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<ParkingSpotResponse>>> Get()
+        public async Task<ActionResult<IEnumerable<ParkingSpotResponse>>> GetAllAsync()
         {
             var parkeds = await _parkingSpotService.GetAllAsync();
+
+           // if(parkeds is null)
+           //     return NotFound();
+            
             return Ok(parkeds);
         }
 
@@ -31,6 +35,7 @@ namespace ParkingControl.Api.Controllers
             if (ModelState.IsValid)
             {
                 ParkingSpotResponse parkingSpot = await _parkingSpotService.CreateAsync(request);
+                
                     return Created("",parkingSpot);
                 //return CreatedAtAction(nameof(GetByLicensePlate), new { licensePlate = parkingSpot.LicensePlate }, parkingSpot.LicensePlate);
             }
@@ -51,6 +56,7 @@ namespace ParkingControl.Api.Controllers
         public async Task<ActionResult> Put(string licensePlate)
         {
             var ParkSpotResult = await _parkingSpotService.FinishParkingSpotByLicensePlateAsync(licensePlate);
+            
             if(ParkSpotResult is null)
                 return BadRequest();
 
