@@ -5,6 +5,7 @@ using ParkingControl.Data.DataContext;
 using ParkingControl.Data.Repositories;
 using ParkingControl.Domain.Calcs;
 using ParkingControl.Domain.Repositories;
+using System.Reflection;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -15,7 +16,12 @@ builder.Services.AddDbContext<AppDbContext>(op =>
         op.UseSqlServer(builder.Configuration.GetConnectionString("PCConnection")));
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
+builder.Services.AddSwaggerGen(options =>
+{
+    var xmlFile = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
+    var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile) ;
+    options.IncludeXmlComments(xmlPath);
+});
 builder.Services.AddCors(options => options.AddPolicy(name: "ParkingControlOrigins",
     policy =>
     {
@@ -26,6 +32,7 @@ builder.Services.AddCors(options => options.AddPolicy(name: "ParkingControlOrigi
 builder.Services.AddScoped<IParkingSpotRepository, ParkingSpotRepository>();
 builder.Services.AddScoped<IParkingSpotService, ParkingSpotService>();
 builder.Services.AddScoped<IParkingFeeRepository, ParkingFeeRepository>();
+builder.Services.AddScoped<IParkingFeeService, ParkingFeeService>();
 builder.Services.AddScoped<IParkingFeeCalculations, ParkingFeeCalculations>();
 
 

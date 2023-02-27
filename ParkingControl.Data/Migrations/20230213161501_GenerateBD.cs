@@ -46,7 +46,7 @@ namespace ParkingControl.Data.Migrations
             migrationBuilder.InsertData(
                 table: "tb_taxa_estacionamento",
                 columns: new[] { "Id", "AditionalHourPrice", "FinalValidityDate", "FullHourPrice", "InitialValidityDate" },
-                values: new object[] { 1, 1.00m, new DateTime(2023, 12, 31, 23, 59, 59, 0, DateTimeKind.Unspecified), 2.00m, new DateTime(2023, 1, 1, 0, 0, 1, 0, DateTimeKind.Unspecified) });
+                values: new object[] { 1, 1.00m, new DateTime(2023, 12, 31, 23, 59, 00, 0, DateTimeKind.Unspecified), 2.00m, new DateTime(2023, 1, 1, 0, 0, 1, 0, DateTimeKind.Unspecified) });
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)

@@ -14,6 +14,25 @@ public class ParkingFeeRepository : IParkingFeeRepository
         _context = context;
     }
 
+    public async Task<IEnumerable<ParkingFee>> GetAllAsync() =>
+        await _context.parkingFees.AsNoTracking().ToListAsync();
+    
+
+    public async Task<ParkingFee> CreateAsync(ParkingFee parkingFee)
+    {
+        await _context.AddAsync(parkingFee);
+        await _context.SaveChangesAsync();
+
+        return parkingFee;
+    }
+
+    public async Task<ParkingFee> UpdateAsync(ParkingFee parkingFee)
+    {
+        _context.Entry(parkingFee).State = EntityState.Modified;
+        await _context.SaveChangesAsync();
+        return parkingFee;
+    }
+
     public async Task<ParkingFee?> GetByCarEntryTimeAsync(DateTime date)
     {
         var query = _context.parkingFees.FromSqlInterpolated($@"SELECT TOP 1 * from dbo.tb_taxa_estacionamento as t 
@@ -22,5 +41,6 @@ public class ParkingFeeRepository : IParkingFeeRepository
         var result = await query.FirstOrDefaultAsync();
         return result;
     }
-        
+
+    
 }
