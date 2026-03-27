@@ -10,6 +10,7 @@ using System.Reflection;
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
+//Outra coisa
 
 builder.Services.AddControllers();
 builder.Services.AddDbContext<AppDbContext>(op => 
